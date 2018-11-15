@@ -1,0 +1,33 @@
+{
+  "name": "next-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel -d dist src",
+    "watch": "npm run build -- --watch"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "pages"
+  ],
+  "author": "Shawn Allen <shawnbot@github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tree-model": "^1.0.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "jest": "^23.6.0"
+  },
+  "peerDependencies": {
+    "next": "^7.0.2",
+    "react": "^16",
+    "react-dom": "^16"
+  }
+}
