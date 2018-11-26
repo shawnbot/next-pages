@@ -1,9 +1,9 @@
 import React from 'react'
 import {withRouter} from 'next/router'
-import memoize from 'memoize'
+import getPageTree from './tree'
+import getPageList from './list'
 
-const getPageTree = memoize(require('./tree'))
-const getPageList = memoize(require('./list'))
+export {getPageTree, getPageList}
 
 export function withPageTree(Component, options) {
   return withRouter(({pageOptions = options, ...rest}) => {
@@ -28,12 +28,10 @@ export function withPageList(Component, options) {
 export function withCurrentPage(Component, options) {
   return withPageTree(props => {
     const {router, pageTree} = props
-    const currentPage = pageTree.find(page => page.path === router.pathname)
-    return <Component {...props} currentPage={currentPage} />
+    props.currentPage = pageTree.find(page => page.path === router.pathname)
+    return <Component {...props} />
   }, options)
 }
-
-export {getPageTree, getPageList}
 
 function updatePageStatus(page, currentPath) {
   page.active = currentPath.startsWith(page.path)
