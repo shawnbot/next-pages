@@ -4,10 +4,10 @@ export default function getContext({dir, pattern}) {
     return [context, context.keys()]
   } else {
     const klawSync = require('klaw-sync')
-    const files = klawSync(dir).filter(item => pattern.test(item.path))
+    const items = klawSync(dir).filter(item => pattern.test(item.path))
     return [
       path => require(join(dir, path)),
-      files
+      items.map(item => item.path)
     ]
   }
 }
