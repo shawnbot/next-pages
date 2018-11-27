@@ -13,7 +13,7 @@ export default function getPageTree(pages) {
         node[key] = val
       }
     }
-    // delete node.model
+    delete node.model
   })
   return root
 }
