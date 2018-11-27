@@ -10,7 +10,9 @@
     "watch": "npm run build -- --watch",
     "prestart": "npm run build",
     "start": "NODE_ENV=dev next dev",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "now-build": "next build",
+    "now-start": "next"
   },
   "keywords": [
     "next",
