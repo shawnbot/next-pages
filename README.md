@@ -58,8 +58,8 @@ export default class extends App {
 }
 ```
 
-## Pages list
-The `pages` export is an array of page objects, each of which is a [tree-model] node with the shape:
+## Page objects
+Page objects are modified [tree-model] nodes with the shape:
 
 ```js
 {
@@ -71,8 +71,18 @@ The `pages` export is an array of page objects, each of which is a [tree-model] 
 }
 ```
 
+Nodes have some useful methods, including:
+
+* `getPath()` returns an array of nodes representing the "path" from the root node to this one, and is useful for building breadcrumb navigation
+* `hasChildren()` is a couple of characters shorter than `children.length > 0`
+* `isRoot()` should be self-explanatory
+
+
+## Pages list
+The `pages` export is an array of [page objects](#page-objects) sorted alphabetically by their `path` in .
+
 ## Page tree
-The `root` export is the top-most [tree-model] node that _should_ represent the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
+The `root` export is the top-most [page object](#page-objects), and likely represents the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
 
 * `root.first(func)` returns the first node for which `func(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
 
