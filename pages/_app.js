@@ -2,21 +2,32 @@ import React from 'react'
 import App, {Container} from 'next/app'
 import {pages, root} from 'next-pages/app'
 
-export default class extends App {
-  static async getInitialProps({Component, ctx}) {
-    return {
-      pageProps: Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
-    }
-  }
+const context = require.context('.', true, /.(js|md)x?$/)
+for (const page of pages) {
+  page.component = context(page.file)
+}
 
+export default class extends App {
   render() {
-    const {Component, pageProps, router} = this.props
+    const {Component, router} = this.props
+    const current = pages.find(node => node.path === router.pathname)
     return (
       <Container>
         <div className="m-4 markdown-body">
-          <h1>Path: <tt>{router.pathname}</tt></h1>
+          <h1><tt>{router.pathname}</tt></h1>
+
+          <h2>Current</h2>
+          {current ? (
+            <ul>
+              <li><b>path</b>: <tt>{current.path}</tt></li>
+              <li><b>file</b>: <tt>{current.file}</tt></li>
+              <li><b>component:</b> <tt>{typeof current.component}</tt></li>
+            </ul>
+          ) : null}
+
           <main>
-            <Component {...pageProps} />
+            <h2>Content</h2>
+            <Component />
           </main>
 
           <h2>Tree</h2>
