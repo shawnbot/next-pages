@@ -79,7 +79,7 @@ Nodes have some useful methods, including:
 
 
 ## Pages list
-The `pages` export is an array of [page objects](#page-objects) sorted alphabetically by their `path` in .
+The `pages` export is an array of [page objects](#page-objects) sorted alphabetically by their `path`.
 
 ## Page tree
 The `root` export is the top-most [page object](#page-objects), and likely represents the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
