@@ -1,6 +1,6 @@
 import React from 'react'
 import App, {Container} from 'next/app'
-import {pages, root} from 'next-pages/app'
+import {pages, root} from 'next-pages'
 
 const context = require.context('.', true, /.(js|md)x?$/)
 root.walk(node => node.component = context(node.file))

@@ -34,13 +34,13 @@ Note: If you don't use custom page extensions (`.md`, `.mdx`, etc.) you can omit
 module.exports = require('next-pages/plugin')()
 ```
 
-Then, in `pages/_app.js`, you can import the `pages` and `root` variables from `next-pages/app`:
+Then, in `pages/_app.js`, you can import the `pages` and `root` variables from `next-pages`:
 
 ```js
 // pages/_app.js
 import React from 'react'
 import App, {Container} from 'next/app'
-import {pages, root} from 'next-pages/app'
+import {pages, root} from 'next-pages'
 
 export default class extends App {
   render() {
@@ -89,7 +89,7 @@ The `root` export is the top-most [page object](#page-objects), and likely repre
 * `root.first(func)` returns the first node for which `func(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
 
     ```js
-    import {root} from 'next-pages/app'
+    import {root} from 'next-pages'
     import {withRouter} from 'next/router'
 
     export default withRouter(({router}) => {
@@ -101,7 +101,7 @@ The `root` export is the top-most [page object](#page-objects), and likely repre
 * `root.all(func)` returns all nodes for which `func(node)` returns `true`. This is useful for finding all of the descendents of a path, e.g.
 
     ```js
-    import {root} from 'next-pages/app'
+    import {root} from 'next-pages'
     import {withRouter} from 'next/router'
     export default withRouter(({router}) => {
       const pages = root.all(node => node.path.startsWith(router.pathname))
@@ -113,7 +113,7 @@ The `root` export is the top-most [page object](#page-objects), and likely repre
 
     ```js
     // pages/_app.js
-    import {root} from 'next-pages/app'
+    import {root} from 'next-pages'
     const context = require.context('.', true, /\.(js|md)x?$/)
     root.walk(node => node.component = context(node.file))
     ```
