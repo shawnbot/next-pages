@@ -10,7 +10,7 @@ for (const page of pages) {
 export default class extends App {
   render() {
     const {Component, router} = this.props
-    const current = pages.find(node => node.path === router.pathname)
+    const current = root.first(node => node.path === router.pathname)
     return (
       <Container>
         <div className="m-4 markdown-body">
