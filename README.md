@@ -72,40 +72,40 @@ The `pages` export is an array of page objects, each of which is a [tree-model] 
 ```
 
 ## Page tree
-The `tree` export is the "root" level [tree-model] node that represents the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
+The `root` export is the top-most [tree-model] node that _should_ represent the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
 
-* `tree.first(predicate)` returns the first node for which `predicate(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
+* `root.first(predicate)` returns the first node for which `predicate(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
 
     ```js
-    import {tree} from 'next-pages/app'
+    import {root} from 'next-pages/app'
     import {withRouter} from 'next/router'
 
     export default withRouter(({router}) => {
-      const page = tree.first(node => node.path === router.pathname)
+      const page = root.first(node => node.path === router.pathname)
       // do something with the page object
     })
     ```
 
-* `tree.all(predicate)` returns all nodes for which `predicate(node)` returns `true`. This is useful for finding all of the descendents of a path, e.g.
+* `root.all(predicate)` returns all nodes for which `predicate(node)` returns `true`. This is useful for finding all of the descendents of a path, e.g.
 
     ```js
-    import {tree} from 'next-pages/app'
+    import {root} from 'next-pages/app'
     import {withRouter} from 'next/router'
     export default withRouter(({router}) => {
-      const pages = tree.all(node => node.path.startsWith(router.pathname))
+      const pages = root.all(node => node.path.startsWith(router.pathname))
       // do something with the pages array
     })
     ```
 
-* `tree.walk(func)` executes `func(node)` for each node in the tree, and takes [some additional options](https://www.npmjs.com/package/tree-model#walk-the-tree). You can use this to `require()` the files and metadata exported by your page components:
+* `root.walk(func)` executes `func(node)` for each node in the tree, and takes [some additional options](https://www.npmjs.com/package/tree-model#walk-the-tree). You can use this to `require()` the files and metadata exported by your page components:
 
     ```js
     // pages/_app.js
-    import {tree} from 'next-pages/app'
+    import {root} from 'next-pages/app'
     const context = require.context('.', true, /\.(js|md)x?$/)
-    tree.walk(node => {
-      node.component = context(node.file)
-    })
+    root.walk(node => node.component = context(node.file))
     ```
+
+    **Note:** you will need to call `require.context('.', ...)` from the `pages` directory for this to work properly!
 
 [tree-model]: https://www.npmjs.com/package/tree-model

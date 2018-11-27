@@ -3,9 +3,7 @@ import App, {Container} from 'next/app'
 import {pages, root} from 'next-pages/app'
 
 const context = require.context('.', true, /.(js|md)x?$/)
-for (const page of pages) {
-  page.component = context(page.file)
-}
+root.walk(node => node.component = context(node.file))
 
 export default class extends App {
   render() {
