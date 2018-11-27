@@ -1,18 +1,12 @@
-const getPages = require('./dist/config')
 const withPlugins = require('next-compose-plugins')
 const mdx = require('@zeit/next-mdx')
-
-const pageExtensions = ['js', 'md', 'mdx']
+const pages = require('./dist/plugin')
 
 module.exports = withPlugins([
-  mdx({extension: /\.mdx?$/})
+  mdx({extension: /\.mdx?$/}),
+  pages
 ], {
-  pageExtensions,
-
-  publicRuntimeConfig: {
-    pages: getPages({pageExtensions})
-  },
-
+  pageExtensions: ['js', 'md', 'mdx'],
   webpack(config) {
     config.resolve.alias['next-pages'] = __dirname
     return config
