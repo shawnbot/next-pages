@@ -1,22 +1,19 @@
 import TreeModel from 'tree-model'
-import getPageList from './list'
 
-export default function getPageTree(options) {
-  const pages = getPageList(options)
+const INDEX_PATTERN = /\/index(\.[a-z]+)?$/
+
+export default function getPageTree(pages) {
   const map = nest(pages)
   const tree = new TreeModel()
   const root = tree.parse(map)
   root.walk(node => {
     const {model} = node
-    for (const key of Object.keys(model)) {
+    for (const [key, val] of Object.entries(model)) {
       if (!node.hasOwnProperty(key)) {
-        node[key] = model[key]
+        node[key] = val
       }
     }
-    delete node.model
-    node.ancestors = node.getPath().reverse()
-    node.lineage = [node, ...ancestors]
-    node.depth = node.ancestors.length
+    // delete node.model
   })
   return root
 }
@@ -59,4 +56,8 @@ function nest(pages) {
   }
 
   return root
+}
+
+function pathSort(a, b) {
+  return a.path.localeCompare(b.path)
 }

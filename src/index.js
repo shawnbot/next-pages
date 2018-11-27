@@ -1,39 +1,35 @@
 import React from 'react'
-import {withRouter} from 'next/router'
+import getConfig from 'next/config'
 import getPageTree from './tree'
-import getPageList from './list'
 
-export {getPageTree, getPageList}
+const INDEX_SUFFIX = '/index'
+const entries = getConfig().publicRuntimeConfig.pages || []
 
-export function withPageTree(Component, options) {
-  return withRouter(({pageOptions = options, ...rest}) => {
-    const tree = getPageTree(options)
-    const currentPath = rest.router.pathname || '/'
-    tree.walk(page => updatePageStatus(page, currentPath))
-    return <Component {...rest} pageTree={tree} />
-  })
+export const pages = entries.map(path => ({
+  file: path,
+  path: getPath(path)
+}))
+
+export const root = getPageTree(pages)
+
+export function withPages(Component) {
+  return props => <Component {...props} pages={pages} />
 }
 
-export function withPageList(Component, options) {
-  return withRouter(({pageOptions = options, ...rest}) => {
-    const list = getPageList(pageOptions)
-    const currentPath = rest.router.pathname || '/'
-    for (const page of list) {
-      updatePageStatus(page, currentPath)
-    }
-    return <Component {...rest} pageList={list} />
-  })
+export function withPageTree(Component) {
+  return props => <Component {...props} pageTree={getPageTree(pages)} />
 }
 
-export function withCurrentPage(Component, options) {
-  return withPageTree(props => {
-    const {router, pageTree} = props
-    props.currentPage = pageTree.find(page => page.path === router.pathname)
-    return <Component {...props} />
-  }, options)
-}
-
-function updatePageStatus(page, currentPath) {
-  page.active = currentPath.startsWith(page.path)
-  page.selected = page.path === currentPath
+function getPath(file) {
+  // strip the last "." and filename extension (".js", etc.)
+  const path = file.substr(0, file.lastIndexOf('.'))
+  // "/index" === "/"
+  if (path === INDEX_SUFFIX) {
+    return '/'
+  } else {
+    // strip the trailing "/index" part
+    return path.endsWith(INDEX_SUFFIX)
+      ? path.substr(0, path.length - INDEX_SUFFIX.length)
+      : path
+  }
 }
