@@ -19,7 +19,7 @@ export default class extends App {
             <ul>
               <li><b>path</b>: <tt>{current.path}</tt></li>
               <li><b>file</b>: <tt>{current.file}</tt></li>
-              <li><b>component:</b> <tt>{typeof current.component}</tt></li>
+              <li><b>meta:</b> <tt>{JSON.stringify(current.component.meta)}</tt></li>
             </ul>
           ) : null}
 
