@@ -77,6 +77,8 @@ Nodes have some useful methods, including:
 * `hasChildren()` is a couple of characters shorter than `children.length > 0`
 * `isRoot()` should be self-explanatory
 
+A node's `path` should correspond to `next/router`'s `Router.pathname` or `props.router.pathname` when you wrap a component in [withRouter]. See the [page tree](#page-tree) methods for some examples.
+
 
 ## Pages list
 The `pages` export is an array of [page objects](#page-objects) sorted alphabetically by their `path`.
