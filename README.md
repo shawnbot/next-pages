@@ -109,3 +109,4 @@ The `root` export is the top-most [tree-model] node that _should_ represent the 
     **Note:** you will need to call `require.context('.', ...)` from the `pages` directory for this to work properly!
 
 [tree-model]: https://www.npmjs.com/package/tree-model
+[withRouter]: https://github.com/zeit/next.js/#using-a-higher-order-component
