@@ -74,7 +74,7 @@ The `pages` export is an array of page objects, each of which is a [tree-model] 
 ## Page tree
 The `root` export is the top-most [tree-model] node that _should_ represent the `/` URL of your app. You can access the `children` Array of this object to get the list of top-level pages, or you can walk the tree with the following methods:
 
-* `root.first(predicate)` returns the first node for which `predicate(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
+* `root.first(func)` returns the first node for which `func(node)` returns `true`. For instance, to get the current page inside a component decorated with [withRouter]:
 
     ```js
     import {root} from 'next-pages/app'
@@ -86,7 +86,7 @@ The `root` export is the top-most [tree-model] node that _should_ represent the 
     })
     ```
 
-* `root.all(predicate)` returns all nodes for which `predicate(node)` returns `true`. This is useful for finding all of the descendents of a path, e.g.
+* `root.all(func)` returns all nodes for which `func(node)` returns `true`. This is useful for finding all of the descendents of a path, e.g.
 
     ```js
     import {root} from 'next-pages/app'
