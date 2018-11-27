@@ -5,9 +5,9 @@ import getPageTree from './tree'
 const INDEX_SUFFIX = '/index'
 const entries = getConfig().publicRuntimeConfig.pages || []
 
-export const pages = entries.map(path => ({
-  file: path,
-  path: getPath(path)
+export const pages = entries.map(file => ({
+  file: '.' + file,
+  path: getPath(file)
 }))
 
 export const root = getPageTree(pages)
