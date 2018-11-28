@@ -6,9 +6,5 @@ module.exports = withPlugins([
   mdx({extension: /\.mdx?$/}),
   pages
 ], {
-  pageExtensions: ['js', 'md', 'mdx'],
-  webpack(config) {
-    config.resolve.alias['next-pages'] = __dirname
-    return config
-  }
+  pageExtensions: ['js', 'md', 'mdx']
 })
