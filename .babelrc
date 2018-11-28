@@ -1,9 +1,9 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "presets": ["next/babel"],
   "exclude": ["**/__tests__"],
   "env": {
-    "dev": {
-      "presets": ["next/babel"]
+    "build": {
+      "presets": ["@babel/preset-env", "@babel/preset-react"]
     }
   }
 }
