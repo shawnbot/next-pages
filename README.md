@@ -120,5 +120,27 @@ The `root` export is the top-most [page object](#page-objects), and likely repre
 
     **Note:** you will need to call `require.context('.', ...)` from the `pages` directory for this to work properly!
 
+## Higher-order components
+There are two higher-order components (decorators) that you can use to inject the [pages list](#pages-list) and [tree](#page-tree) values as props into components. Both of these also inject the `router` prop via [withRouter] for convenience:
+
+### `withPages(Component)`
+Injects the [page list](#pages-list) as the `pages` prop:
+
+```jsx
+import {withPages} from 'next-pages'
+export default withPages(({pages, router, ...rest}) => {
+  // ...
+})
+```
+
+### `withPageTree(Component)`
+Injects the root [page object](#page-objects) as the `pageTree` prop:
+
+```jsx
+import {withPageTree} from 'next-pages'
+export default withPageTree({pageTree, router, ...rest}) => {
+  // ...
+})
+
 [tree-model]: https://www.npmjs.com/package/tree-model
 [withRouter]: https://github.com/zeit/next.js/#using-a-higher-order-component
