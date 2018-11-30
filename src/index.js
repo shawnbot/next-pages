@@ -1,23 +1,26 @@
 import React from 'react'
+import {withRouter} from 'next/router'
 import getConfig from 'next/config'
 import getPageTree from './tree'
 
 const INDEX_SUFFIX = '/index'
-const entries = getConfig().publicRuntimeConfig.pages || []
 
-export const pages = entries.map(file => ({
-  file: '.' + file,
-  path: getPath(file)
-}))
+// this is the raw list of page filenames relative to ./pages
+const entries = (getConfig().publicRuntimeConfig.pages || [])
+  .map(file => ({
+    file: '.' + file,
+    path: getPath(file)
+  }))
 
-export const root = getPageTree(pages)
+export const root = getPageTree(entries)
+export const pages = root.all(node => true)
 
 export function withPages(Component) {
-  return props => <Component {...props} pages={pages} />
+  return withRouter(props => <Component {...props} pages={pages} />)
 }
 
 export function withPageTree(Component) {
-  return props => <Component {...props} pageTree={getPageTree(pages)} />
+  return withRouter(props => <Component {...props} pageTree={root} />)
 }
 
 function getPath(file) {
