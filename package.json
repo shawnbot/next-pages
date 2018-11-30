@@ -1,17 +1,16 @@
 {
   "name": "next-pages",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Get all the pages in your Next app as a list or tree",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "prebuild": "rm -rf dist",
+    "prebuild": "npm run dist",
     "dist": "NODE_ENV=dist babel -d dist src",
     "watch": "npm run dist -- --watch",
     "predev": "npm run dist",
     "dev": "next",
     "prepublishOnly": "npm run dist",
-    "prebuild": "npm run dist",
     "build": "next build",
     "start": "next start"
   },
