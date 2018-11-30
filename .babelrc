@@ -1,8 +1,8 @@
 {
   "presets": ["next/babel"],
-  "exclude": ["**/__tests__"],
+  "ignore": ["**/__tests__"],
   "env": {
-    "build": {
+    "dist": {
       "presets": ["@babel/preset-env", "@babel/preset-react"]
     }
   }

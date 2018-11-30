@@ -6,13 +6,14 @@
   "scripts": {
     "test": "jest",
     "prebuild": "rm -rf dist",
-    "build": "babel -d dist src",
-    "watch": "npm run build -- --watch",
-    "prestart": "npm run build",
-    "start": "NODE_ENV=dev next dev",
-    "prepublishOnly": "npm run build",
-    "now-build": "next build",
-    "now-start": "next"
+    "dist": "NODE_ENV=dist babel -d dist src",
+    "watch": "npm run dist -- --watch",
+    "predev": "npm run dist",
+    "dev": "next",
+    "prepublishOnly": "npm run dist",
+    "prebuild": "npm run dist",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [
     "next",
