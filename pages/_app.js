@@ -1,8 +1,8 @@
 import React from 'react'
 import App, {Container} from 'next/app'
-import {pages, root} from 'next-pages'
+import {pages, root} from '../src'
 
-const context = require.context('.', true, /.(js|md)x?$/)
+const context = require.context('.', true, /\.(js|md)x?$/)
 root.walk(node => node.component = context(node.file))
 
 export default class extends App {
@@ -12,26 +12,26 @@ export default class extends App {
     return (
       <Container>
         <div className="m-4 markdown-body">
-          <h1><tt>{router.pathname}</tt></h1>
+          <h2><tt>{router.pathname}</tt></h2>
 
-          <h2>Current</h2>
+          <h3>Current</h3>
           {current ? (
             <ul>
               <li><b>path</b>: <tt>{current.path}</tt></li>
               <li><b>file</b>: <tt>{current.file}</tt></li>
               <li><b>meta:</b> <tt>{JSON.stringify(current.component.meta)}</tt></li>
             </ul>
-          ) : null}
+          ) : <p className="flash flash-warn">no current!</p>}
 
           <main>
-            <h2>Content</h2>
+            <h3>Content</h3>
             <Component />
           </main>
 
-          <h2>Tree</h2>
+          <h3>Tree</h3>
           <Tree node={root} />
 
-          <h2>List</h2>
+          <h3>List</h3>
           <ul>
             {pages.map(node => <li key={node.path}><NavLink node={node} /></li>)}
           </ul>
@@ -42,7 +42,7 @@ export default class extends App {
   }
 }
 
-function Tree({node, depth = 0, link: Link = NavLink, ...rest}) {
+function Tree({node, link: Link = NavLink, ...rest}) {
   return (
     <>
       <Link node={node} {...rest} />
@@ -50,7 +50,7 @@ function Tree({node, depth = 0, link: Link = NavLink, ...rest}) {
         <ul role="presentation">
           {node.children.map(child => (
             <li role="presentation" key={child.path}>
-              <Tree node={child} {...rest} depth={depth + 1} />
+              <Tree node={child} {...rest} />
             </li>
           ))}
         </ul>
